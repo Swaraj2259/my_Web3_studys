@@ -1,0 +1,684 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Block Chain </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1263f483-629e-80b9-af79-d16c5ec92d1c" class="page serif"><header><img class="page-cover-image" src="Block%20Chain%201263f483629e80b9af79d16c5ec92d1c/blockchain_wallpaper.webp" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="Block%20Chain%201263f483629e80b9af79d16c5ec92d1c/blockchainicon.jpeg"/></div><h1 class="page-title">Block Chain </h1><p class="page-description"></p></header><div class="page-body"><h2 id="1263f483-629e-80d3-8e9b-c9f1206623eb" class=""><strong>Crypto Mining</strong> </h2><p id="1263f483-629e-8041-8024-e0e0b030211e" class="">is the process of validating and recording transactions on a blockchain network, typically for a cryptocurrency, using computational power. In return, the miner is rewarded with cryptocurrency tokens. It’s a crucial part of maintaining decentralized networks like Bitcoin and Ethereum.</p><p id="1263f483-629e-8038-a629-f31932af9ea7" class="">Here’s how it works in simple terms:</p><p id="1263f483-629e-8083-a730-c45d025b57fb" class=""><strong>Key Concepts:</strong></p><p id="1263f483-629e-8038-8776-d49eb478292e" class="">1.	<strong>Blockchain:</strong> A decentralized digital ledger where transactions are recorded in blocks. Each block is linked to the previous one, creating a chain of blocks (hence, “blockchain”).</p><p id="1263f483-629e-80fa-a719-dae60b3590bb" class="">2.	<strong>Cryptocurrency:</strong> A form of digital currency that operates on a blockchain. Bitcoin and Ethereum are popular examples.</p><p id="1263f483-629e-8073-a72a-d0dcdf1c3a36" class="">3.	<strong>Mining:</strong> The process where computers, called “miners,” solve complex mathematical puzzles to validate transactions and secure the blockchain.</p><p id="1263f483-629e-80af-b46d-f4237932e4fe" class=""><strong>Steps in Crypto Mining:</strong></p><p id="1263f483-629e-80f9-bc5d-e23c665aafc5" class="">1.	<strong>Transaction Verification:</strong></p><p id="1263f483-629e-8092-9a05-d7bd6597d93d" class="">•	When someone sends cryptocurrency to another person, the transaction is broadcast to the network.</p><p id="1263f483-629e-8081-8d1a-d19e1502b7ea" class="">•	Miners collect these transactions and group them into blocks.</p><p id="1263f483-629e-80d7-b8af-f3ae64531dcd" class="">2.	<strong>Solving the Puzzle (Proof of Work):</strong></p><p id="1263f483-629e-8044-a71f-dacb44a1ad5b" class="">•	To add the block to the blockchain, miners must solve a cryptographic puzzle. This puzzle requires trial and error to find a solution, demanding significant computational power.</p><p id="1263f483-629e-809f-9bb5-d31785b6cf16" class="">•	The first miner to solve the puzzle gets to add the block to the blockchain.</p><p id="1263f483-629e-80be-be40-e2faecb9f001" class="">3.	<strong>Block Addition:</strong></p><p id="1263f483-629e-8062-89fd-db1916336fc5" class="">•	Once a miner successfully solves the puzzle, the block is added to the blockchain, and the transactions within it are confirmed.</p><p id="1263f483-629e-8018-b1d8-da11161f7b6c" class="">4.	<strong>Rewards:</strong></p><p id="1263f483-629e-800b-a464-efcaa0413f20" class="">•	The miner receives a block reward in the form of cryptocurrency (like Bitcoin) and may also receive transaction fees from the transactions in the block.</p><p id="1263f483-629e-80b6-99bf-fccf2b0686b8" class="">•	For Bitcoin, the reward is currently 6.25 BTC per block (as of 2024), but this halves roughly every four years (in an event called “halving”).</p><p id="1263f483-629e-8044-b1a1-ef2d315f8668" class=""><strong>Types of Crypto Mining:</strong></p><p id="1263f483-629e-8075-860f-c481ab91aa85" class="">1.	<strong>ASIC Mining:</strong></p><p id="1263f483-629e-80cc-80e5-e2a924ec8834" class="">•	<strong>ASICs (Application-Specific Integrated Circuits)</strong> are specialized devices built specifically for mining cryptocurrencies. They are more efficient than general-purpose computers.</p><p id="1263f483-629e-805f-96df-e028ef72a674" class="">2.	<strong>GPU Mining:</strong></p><p id="1263f483-629e-80c5-938f-c537ac9845e4" class="">•	This uses <strong>graphics processing units (GPUs)</strong> to mine cryptocurrencies. GPUs are powerful and flexible, making them useful for mining various cryptocurrencies like Ethereum.</p><p id="1263f483-629e-808e-9d3f-f1b9d6a718bf" class="">3.	<strong>Cloud Mining:</strong></p><p id="1263f483-629e-80d1-befb-f60aa32214a1" class="">•	Instead of buying and maintaining hardware, users rent mining power from data centers. The company takes care of the equipment, and the user gets a share of the mining rewards.</p><p id="1263f483-629e-807a-a07b-fbc6d5f630f8" class="">4.	<strong>Proof of Stake (PoS) Mining:</strong></p><p id="1263f483-629e-80cf-82ad-fede7e71774c" class="">•	Some newer cryptocurrencies, like Ethereum 2.0, use <strong>Proof of Stake (PoS)</strong> instead of mining. In PoS, validators are chosen based on how much cryptocurrency they “stake” or lock up, and they receive rewards for validating transactions.</p><p id="1263f483-629e-805b-b817-ec0f3482c9f3" class=""><strong>Downsides of Crypto Mining:</strong></p><p id="1263f483-629e-8062-9614-c3ef59ada72b" class="">•	<strong>Energy Consumption:</strong> Mining, especially for cryptocurrencies like Bitcoin, requires huge amounts of electricity. This has led to environmental concerns due to the carbon footprint of large-scale mining operations.</p><p id="1263f483-629e-808e-afac-d8bf043731db" class="">•	<strong>Expensive Hardware:</strong> Mining requires powerful and expensive hardware, particularly for proof-of-work cryptocurrencies like Bitcoin, making it hard for individuals to compete.</p><p id="1263f483-629e-80a6-9bcf-fee6c94c76d8" class=""><strong>In Summary:</strong></p><p id="1263f483-629e-808b-92b8-e8ff69197a9e" class="">Crypto mining is a process of verifying cryptocurrency transactions, securing the blockchain, and earning rewards. It involves solving complex puzzles using computational power, which consumes significant energy and resources but is critical for the decentralization and security of blockchain networks.</p><h2 id="1263f483-629e-8087-ac34-ec8153ead2e3" class="">Gas Fee</h2><p id="1263f483-629e-80b5-86e6-c1251297261e" class="">In the Ethereum network, a <strong>gas fee</strong> is the amount of cryptocurrency (specifically, <strong>Ether (ETH)</strong>) that users must pay to perform any operation, such as executing a transaction or running a smart contract. The gas fee compensates miners (or validators in Ethereum 2.0) for their computational work in processing and validating transactions, maintaining network security, and confirming blocks on the blockchain.</p><p id="1263f483-629e-80e2-98a1-f220549dd787" class=""><strong>Key Concepts Behind Gas Fees:</strong></p><p id="1263f483-629e-803e-be21-f116ccceb424" class="">1.	<strong>Gas:</strong></p><p id="1263f483-629e-80c6-a66b-d577d66cfc92" class="">•	<strong>Gas</strong> refers to the computational cost required to execute a transaction or smart contract on the Ethereum network.</p><p id="1263f483-629e-80dd-a9ce-fb096d5fc55e" class="">•	It is measured in <strong>units of gas</strong>, which vary depending on the complexity of the transaction or contract.</p><p id="1263f483-629e-8018-b733-d06434404099" class="">•	For example, simple transactions like sending ETH from one address to another use fewer gas units than executing a complex smart contract.</p><p id="1263f483-629e-807b-ad84-ddf30fd4d186" class="">2.	<strong>Gas Price:</strong></p><p id="1263f483-629e-80f3-8d03-f49aa79c25b7" class="">•	The <strong>gas price</strong> is the amount of Ether you are willing to pay per unit of gas.</p><p id="1263f483-629e-801b-bc08-dc068d226c18" class="">•	It is typically measured in <strong>gwei</strong>, which is a smaller unit of ETH (1 gwei = 0.000000001 ETH).</p><p id="1263f483-629e-80b4-9cc3-e62b47761536" class="">•	Users can set the gas price higher if they want their transactions to be processed faster, as miners prioritize transactions with higher fees.</p><p id="1263f483-629e-8011-93f3-f7a27f479bd3" class="">3.	<strong>Gas Limit:</strong></p><p id="1263f483-629e-807a-ab75-d2867667b407" class="">•	The <strong>gas limit</strong> is the maximum amount of gas a user is willing to pay for a transaction.</p><p id="1263f483-629e-80e4-aa06-e166252efb6d" class="">•	Setting the gas limit too low may cause the transaction to fail, as there might not be enough gas to complete the operation.</p><p id="1263f483-629e-8036-9b1a-cf3bcceb0849" class="">•	Setting the limit too high doesn’t necessarily mean you’ll spend more gas, as you only pay for the actual gas used, but it ensures that complex transactions have enough gas to be executed.</p><p id="1263f483-629e-8018-ab90-d16938e8c5cc" class=""><strong>How Gas Fees Work:</strong></p><p id="1263f483-629e-8042-9dbf-d1bfd451b148" class="">1.	<strong>Transaction Processing:</strong></p><p id="1263f483-629e-802d-9771-da35af2c94f6" class="">•	Whenever you want to send ETH, interact with a decentralized application (DApp), or run a smart contract, you need to pay a gas fee.</p><p id="1263f483-629e-8067-81e2-ef2a85e414d2" class="">•	Miners (in Ethereum 1.0) or validators (in Ethereum 2.0) use computational power to verify the transaction and add it to the blockchain.</p><p id="1263f483-629e-802c-9a3d-f3e93a2dd63a" class="">2.	<strong>Base Fee + Tip (Ethereum 2.0):</strong></p><p id="1263f483-629e-80e0-abfe-d54de66cba88" class="">•	In <strong>Ethereum 2.0</strong> (after the London Hard Fork in August 2021), a new fee structure was introduced:</p><p id="1263f483-629e-802d-a724-f18487d1143b" class="">•	<strong>Base Fee:</strong> This is a mandatory fee that all transactions must include. The base fee dynamically adjusts based on network congestion.</p><p id="1263f483-629e-809d-9cfb-eac4a25f5d3a" class="">•	<strong>Tip (Priority Fee):</strong> Users can add a <strong>tip</strong> (also called a priority fee) to incentivize miners or validators to prioritize their transactions, making them faster.</p><p id="1263f483-629e-8034-bce3-ddaeb84a26eb" class="">3.	<strong>Gas Fee Calculation:</strong></p><p id="1263f483-629e-8075-a941-e4bf4d204da1" class="">•	The total gas fee is calculated as:</p><p id="1263f483-629e-80a2-962f-f596a94de76b" class="">Gas Fee = Gas Units Used × Gas Price</p><p id="1263f483-629e-80a8-b16b-e915c13722db" class="">•	Example:</p><p id="1263f483-629e-8003-a4eb-ec335ce92517" class="">If a transaction uses <strong>21,000 gas units</strong> (standard for a simple ETH transfer) and the gas price is set to <strong>100 gwei</strong>, the total gas fee would be:</p><p id="1263f483-629e-8069-9b7c-eb1c21cdd18f" class="">21,000 gas × 100 gwei = 2,100,000 gwei = 0.0021 ETH</p><p id="1263f483-629e-8016-a1a3-fad30bb73b1a" class=""><strong>Factors That Affect Gas Fees:</strong></p><p id="1263f483-629e-8084-b2a1-e7f78c5a0f15" class="">1.	<strong>Network Congestion:</strong></p><p id="1263f483-629e-8015-bc4f-c032b3522311" class="">•	When the Ethereum network is busy (many users are trying to send transactions), gas prices tend to rise because users compete to get their transactions processed.</p><p id="1263f483-629e-807b-8d8f-f1a2509e13fe" class="">•	During periods of high demand (such as popular token launches or NFT drops), gas fees can spike significantly.</p><p id="1263f483-629e-8066-ba46-d65b4566fbfc" class="">2.	<strong>Complexity of the Transaction:</strong></p><p id="1263f483-629e-8099-be1b-cfbd22afa51a" class="">•	Transactions that require more computational work, such as interacting with smart contracts (e.g., DeFi or NFT platforms), require more gas units and thus have higher fees.</p><p id="1263f483-629e-8070-9620-c9bdfb8fcf57" class="">3.	<strong>User-Set Gas Price:</strong></p><p id="1263f483-629e-80d5-8625-e33e4af8fbd7" class="">•	Users can manually set the gas price they are willing to pay. Higher prices will result in faster transaction confirmation.</p><p id="1263f483-629e-80b2-931e-c9a03b48208d" class=""><strong>Why Are Gas Fees Important?</strong></p><p id="1263f483-629e-80df-b714-e9202599075b" class="">•	<strong>Network Security and Decentralization:</strong> Gas fees prevent malicious actors from spamming the network with meaningless transactions because each transaction costs money.</p><p id="1263f483-629e-80c0-8c24-e2b81208a746" class="">•	<strong>Miner/Validator Compensation:</strong> Gas fees incentivize miners (in proof-of-work) or validators (in proof-of-stake) to process and confirm transactions, securing the network in return for rewards.</p><p id="1263f483-629e-80ce-a83f-d187b6860b76" class=""><strong>Example:</strong></p><p id="1263f483-629e-80bc-90fb-d28ead727d4a" class="">Let’s say you want to send 1 ETH to a friend. The transaction would have a gas fee, which might look like this:</p><p id="1263f483-629e-80e5-90b6-c30dd07e6c83" class="">•	<strong>Gas Units Used:</strong> 21,000 (standard for ETH transfers)</p><p id="1263f483-629e-8083-a38a-cb4a6b5df020" class="">•	<strong>Gas Price:</strong> 100 gwei</p><p id="1263f483-629e-80e5-8dd3-c6527796b80b" class="">•	<strong>Total Fee:</strong> 0.0021 ETH</p><p id="1263f483-629e-8008-a0c0-e942241bb349" class="">You would pay <strong>1 ETH + 0.0021 ETH</strong> to complete the transaction.</p><p id="1263f483-629e-803c-8022-ce9d8587ac8c" class=""><strong>Gas Optimization:</strong></p><p id="1263f483-629e-804b-a59b-e6c739a1646c" class="">•	<strong>Layer 2 Solutions</strong> like <strong>Polygon</strong> or <strong>Optimism</strong> allow users to transact on Ethereum without paying high gas fees by moving most activity off the main Ethereum chain while still securing it.</p><p id="1263f483-629e-802a-a57a-caf9820b6db1" class="">•	<strong>Timing:</strong> You can also check the Ethereum gas tracker (e.g., Etherscan) to see when gas fees are low to submit your transaction.</p><p id="1263f483-629e-80b3-96c2-e8d3472e1c3a" class="">In summary, <strong>gas fees</strong> in Ethereum are necessary to incentivize miners or validators to process transactions and secure the blockchain. These fees vary depending on network congestion, the complexity of the transaction, and the gas price set by the user.</p><h2 id="1263f483-629e-804b-91df-cb0c5c802fe7" class="">A H<strong>ash</strong> </h2><p id="1263f483-629e-80ad-8f86-f5b6e031734b" class="">in blockchain refers to the output generated by a <strong>cryptographic hash function</strong>. It is a fixed-size string of characters that uniquely represents data (such as a block of transactions), and even a small change in the input data will drastically change the hash output. Hashing plays a fundamental role in ensuring security, integrity, and immutability in blockchain networks.</p><p id="1263f483-629e-80f1-8dd4-f51dab186295" class=""><strong>How Hashing Works in Blockchain:</strong></p><p id="1263f483-629e-80e1-83da-cfd34c975c8d" class="">1.	<strong>Hash Function:</strong></p><p id="1263f483-629e-805d-a7c2-f8802be98603" class="">•	A hash function is a mathematical algorithm that converts an arbitrary amount of input data into a fixed-size string.</p><p id="1263f483-629e-80a6-86d9-ff57a81ff49c" class="">•	Popular cryptographic hash functions used in blockchain include <strong>SHA-256</strong> (used by Bitcoin) and <strong>Keccak-256</strong> (used by Ethereum).</p><p id="1263f483-629e-807e-9165-c66e0b3d17f2" class="">•	The output of a hash function is typically a <strong>hash value</strong> or <strong>digest</strong>.</p><p id="1263f483-629e-80cf-a91c-c0e93eb0f203" class="">Example:</p><p id="1263f483-629e-8029-8054-f2e95c02bb19" class="">If you input “Hello, World!” into a hash function like SHA-256, it produces a hash that looks like this:</p><p id="1263f483-629e-805b-ac94-c4509a581602" class="">A591A6D40BF420404A011733CFB7B190D62C65BF0BCDA32B76FC6B718F791A4E</p><p id="1263f483-629e-8034-821d-da94c1f3d56d" class="">2.	<strong>Properties of a Hash Function:</strong></p><p id="1263f483-629e-806e-b675-e98343e6f837" class="">•	<strong>Deterministic</strong>: The same input will always produce the same hash.</p><p id="1263f483-629e-80e3-99f6-de7e244b5e92" class="">•	<strong>Fixed Size</strong>: Regardless of the size of the input data, the hash is always a fixed length. For example, SHA-256 always outputs 256 bits.</p><p id="1263f483-629e-80fc-b791-d27c58b91293" class="">•	<strong>Efficient</strong>: Hash functions are designed to be fast and efficient to compute.</p><p id="1263f483-629e-8011-9aa2-e3438f201dd6" class="">•	<strong>Pre-image Resistance</strong>: It is computationally infeasible to reverse-engineer the original input from the hash value.</p><p id="1263f483-629e-80d0-a759-ef00ae3c210f" class="">•	<strong>Small Changes in Input Drastically Change the Hash</strong>: Even a small change in the input data will result in a completely different hash.</p><p id="1263f483-629e-8082-a6f6-f2dd6ab83415" class="">•	<strong>Collision Resistant</strong>: No two different inputs should produce the same hash (although collisions are theoretically possible, they are extremely unlikely in cryptographic hash functions).</p><p id="1263f483-629e-8086-851f-e8a2d419db30" class="">3.	<strong>Role of Hashing in Blockchain:</strong></p><p id="1263f483-629e-80af-bbb9-c17625ac4998" class="">•	<strong>Block Identification</strong>: Each block in a blockchain has a unique hash, often referred to as the block hash. This hash is derived from the block’s contents, such as transactions, the previous block’s hash, and a timestamp.</p><p id="1263f483-629e-809f-a6c5-dac806bba26b" class="">•	<strong>Linking Blocks</strong>: The hash of each block contains the hash of the previous block, creating a <strong>chain of blocks</strong> (hence, the term blockchain). This interlinking ensures that once a block is added, it is permanently connected to the previous one.</p><p id="1263f483-629e-806e-8bde-d58d7d63df70" class="">•	<strong>Proof of Work (PoW)</strong>: In Proof of Work blockchains like Bitcoin, miners solve a cryptographic puzzle by trying to find a hash that meets certain criteria (e.g., having a certain number of leading zeroes). This process requires computational work, and the successful miner adds the new block to the blockchain.</p><p id="1263f483-629e-802b-91a3-c46e59717cdc" class="">•	<strong>Data Integrity</strong>: Hashes help ensure the integrity of the data. If someone tries to tamper with a block’s data, even a small change will drastically alter its hash. This change would break the link between blocks, making the tampering immediately evident to the entire network.</p><p id="1263f483-629e-8029-88f3-ce559d2eed6d" class=""><strong>Example of Hashing in Blockchain:</strong></p><p id="1263f483-629e-80d2-821c-d0efc23400e4" class="">Imagine a blockchain where each block contains some transactions:</p><p id="1263f483-629e-807f-a517-d5452154902f" class="">•	<strong>Block 1</strong> contains data about some transactions. Its hash might be H1.</p><p id="1263f483-629e-807f-ac27-d7cff4bd7a54" class="">•	<strong>Block 2</strong> contains more transactions, but it also includes the hash of Block 1 (H1). Its own hash might be H2.</p><p id="1263f483-629e-8059-9fb0-ccaf2241f353" class="">•	<strong>Block 3</strong> contains the hash of Block 2 (H2), and its own hash might be H3.</p><p id="1263f483-629e-8064-8640-fdaba9f80e73" class="">This structure ensures that if someone alters the transactions in Block 1, its hash (H1) will change. This would also affect Block 2’s hash, since it contains H1. As a result, the tampering would be immediately noticeable because all subsequent hashes would no longer match.</p><p id="1263f483-629e-803a-9574-e53dbf8b2785" class=""><strong>Hashing in Proof of Work (PoW):</strong></p><p id="1263f483-629e-800a-a1cb-e149c3705181" class="">In PoW blockchains like Bitcoin:</p><p id="1263f483-629e-808e-8a12-c50e5fd7f7e8" class="">1.	<strong>Miners</strong> compete to solve a computational puzzle by finding a specific hash value for a new block.</p><p id="1263f483-629e-808e-8055-e7ae3b96c9fc" class="">2.	They keep altering a random number called a <strong>nonce</strong> and rehashing the block’s contents until they find a hash that meets the network’s difficulty criteria (e.g., starts with a certain number of leading zeros).</p><p id="1263f483-629e-802c-84a2-edee35fd4b48" class="">3.	Once a valid hash is found, the block is added to the blockchain, and the miner is rewarded.</p><p id="1263f483-629e-8091-a315-d14f3b128e7f" class="">This process is resource-intensive, but it secures the blockchain by making it extremely difficult to alter past blocks.</p><p id="1263f483-629e-80ce-aef0-f9feaf38b17e" class=""><strong>Summary:</strong></p><p id="1263f483-629e-8027-999f-e05b7eaf7593" class="">•	A <strong>hash</strong> in blockchain is a unique, fixed-size output generated by a cryptographic hash function.</p><p id="1263f483-629e-80fa-b445-f0d6430a7544" class="">•	It ensures the <strong>integrity</strong> of data and links blocks together to form a secure chain.</p><p id="1263f483-629e-804d-ac19-d85b71ce8d3e" class="">•	Hashing is also key to the <strong>Proof of Work</strong> consensus mechanism, where miners solve for a specific hash to add blocks to the blockchain.</p><p id="1263f483-629e-801b-a066-f13a8e249d2a" class="">•	Hashes provide <strong>immutability</strong> in the blockchain, as altering any block’s data changes its hash and breaks the chain.</p><p id="1263f483-629e-8027-af87-cc435e808990" class="">Hashing ensures security, integrity, and trust in decentralized networks.</p><h2 id="1263f483-629e-8089-9a54-c7dacac161ad" class=""><strong>EVM-compatible</strong> </h2><p id="1263f483-629e-802c-9e8b-cae7dceb9890" class="">refers to blockchain platforms and networks that are capable of running <strong>Ethereum Virtual Machine (EVM)</strong> smart contracts. The <strong>Ethereum Virtual Machine</strong> is the runtime environment for smart contracts in Ethereum, and it allows developers to deploy decentralized applications (dApps) and execute smart contracts on the Ethereum network.</p><p id="1263f483-629e-807d-8b29-d325bd449c96" class="">When a blockchain is <strong>EVM-compatible</strong>, it means that it supports Ethereum’s development tools, languages (such as Solidity and Vyper), and smart contracts, enabling cross-chain functionality and interoperability with Ethereum-based dApps and tools.</p><h3 id="1263f483-629e-80c3-8a55-f734294294d6" class=""><strong>Key Concepts of EVM Compatibility:</strong></h3><p id="1263f483-629e-801c-ae8f-c4a5bcf192b2" class="">1.	<strong>Ethereum Virtual Machine (EVM):</strong></p><p id="1263f483-629e-80cd-990c-fe59d63a2b95" class="">•	The <strong>EVM</strong> is essentially a decentralized global computer that runs smart contracts on Ethereum. Every node on the Ethereum network runs the EVM and executes the same instructions to ensure consensus.</p><p id="1263f483-629e-802c-b838-eff375adb42b" class="">•	It allows developers to deploy decentralized applications and run code in a deterministic, predictable, and consistent way across the Ethereum network.</p><p id="1263f483-629e-80a2-9eb6-e42382162767" class="">2.	<strong>EVM-Compatible Chains:</strong></p><p id="1263f483-629e-80cb-86f1-e70d96fb85a5" class="">•	Blockchain networks that are <strong>EVM-compatible</strong> can run the same <strong>smart contracts</strong> and <strong>decentralized applications</strong> as Ethereum. This means developers can use the same tools and programming languages (mainly <strong>Solidity</strong> and <strong>Vyper</strong>) to deploy dApps.</p><p id="1263f483-629e-8068-873f-dc1fd655166e" class="">•	EVM-compatible blockchains offer <strong>interoperability</strong> with Ethereum and often offer faster transaction speeds, lower gas fees, or unique features to attract developers and users.</p><p id="1263f483-629e-80f8-882e-e873b17aafc0" class="">3.	<strong>Benefits of EVM Compatibility:</strong></p><p id="1263f483-629e-80b8-851e-e9b034235907" class="">•	<strong>Seamless Porting</strong>: Developers can easily port their existing Ethereum dApps and smart contracts to other EVM-compatible chains without needing to rewrite code from scratch.</p><p id="1263f483-629e-8076-afee-da88775fd184" class="">•	<strong>Cross-Chain Interoperability</strong>: EVM-compatible blockchains can often connect to Ethereum through bridges, allowing tokens and assets to be transferred between chains.</p><p id="1263f483-629e-80b5-a899-c1352fbb8492" class="">•	<strong>Lower Fees and Scalability</strong>: Many EVM-compatible blockchains offer solutions like lower gas fees or faster transaction processing than Ethereum’s mainnet.</p><p id="1263f483-629e-8044-ad6a-c89cde8a9b49" class="">4.	<strong>Examples of EVM-Compatible Blockchains:</strong></p><p id="1263f483-629e-80af-8f1d-c2105f4fd5d7" class="">•	<strong>Binance Smart Chain (BSC)</strong>: A popular blockchain for lower fees and faster transaction speeds while maintaining compatibility with Ethereum smart contracts.</p><p id="1263f483-629e-8088-9e43-c6f30ee85378" class="">•	<strong>Polygon (formerly Matic)</strong>: A Layer 2 scaling solution for Ethereum, which is EVM-compatible and offers lower gas fees and quicker transaction times.</p><p id="1263f483-629e-8028-bef9-cdd3b6bbbef0" class="">•	<strong>Avalanche (C-Chain)</strong>: Avalanche’s Contract Chain (C-Chain) is EVM-compatible, allowing Ethereum developers to deploy their dApps with minimal changes.</p><p id="1263f483-629e-8006-88db-d29db4d193a7" class="">•	<strong>Fantom (Opera Chain)</strong>: Fantom is a high-performance EVM-compatible blockchain that provides fast and low-cost transactions.</p><p id="1263f483-629e-8072-b6dc-ed9ea912ee66" class="">•	<strong>Arbitrum and Optimism</strong>: These are Layer 2 solutions that are EVM-compatible and aim to improve scalability and lower transaction costs for Ethereum-based dApps.</p><p id="1263f483-629e-8031-9f4f-cc4420e080e5" class="">•	<strong>Harmony</strong>: Another blockchain focused on offering high throughput and scalability while being EVM-compatible.</p><h3 id="1263f483-629e-8046-ac25-e98c6b70e7cf" class="">5.	<strong>EVM-Compatible Development Tools:</strong></h3><p id="1263f483-629e-804c-aaab-d844b4874fd2" class="">•	<strong>Solidity</strong>: The primary programming language for developing smart contracts that run on the EVM.</p><p id="1263f483-629e-805b-b217-e7809e73f42d" class="">•	<strong>Truffle, Hardhat, Remix</strong>: These are popular development frameworks and tools used for building, testing, and deploying smart contracts on EVM-compatible chains.</p><p id="1263f483-629e-80af-9a5e-e0b5817183c9" class="">•	<strong>MetaMask</strong>: A widely used wallet for interacting with Ethereum and EVM-compatible blockchains.</p><p id="1263f483-629e-8023-89a0-fae9598ed391" class="">•	<strong>Chainlink</strong>: A decentralized oracle network that can be used across EVM-compatible chains to bring real-world data into smart contracts.</p><h3 id="1263f483-629e-8048-b84c-c6cfeb27a0dd" class="">6.	<strong>Use Cases for EVM-Compatible Chains:</strong></h3><p id="1263f483-629e-8037-a488-cb42f61820de" class="">•	<strong>Decentralized Finance (DeFi)</strong>: Many EVM-compatible chains have thriving DeFi ecosystems where users can engage in lending, borrowing, staking, yield farming, and more with lower gas fees compared to Ethereum.</p><p id="1263f483-629e-8041-8517-e074317be00b" class="">•	<strong>Non-Fungible Tokens (NFTs)</strong>: EVM-compatible networks also support NFT platforms and marketplaces, allowing users to mint, trade, and transfer NFTs across multiple chains.</p><p id="1263f483-629e-80b0-8b31-e68c931ec1aa" class="">•	<strong>Interoperable dApps</strong>: Developers can deploy dApps across multiple EVM-compatible blockchains, giving users more flexibility and choice in which network they interact with.</p><p id="1263f483-629e-80fb-bcaa-eff4126efc13" class=""><strong>Why EVM Compatibility is Important:</strong></p><p id="1263f483-629e-8060-b079-f39e226a747e" class="">•	<strong>Interoperability</strong>: Developers don’t have to learn new languages or tools to build on multiple blockchains. EVM-compatible chains ensure that dApps built on Ethereum can run smoothly on other networks, enhancing <strong>cross-chain compatibility</strong>.</p><p id="1263f483-629e-80b1-9fa4-f07ec3fda787" class="">•	<strong>Developer Ecosystem</strong>: The large developer community around Ethereum means that tools, libraries, and resources are widely available for building dApps. EVM-compatible blockchains benefit from this ecosystem without needing to create new development environments.</p><p id="1263f483-629e-80f6-87bc-de6ed13409d2" class="">•	<strong>Lower Costs and Scalability</strong>: Many EVM-compatible chains provide solutions to Ethereum’s scaling issues, offering faster transaction speeds and lower gas fees while still maintaining compatibility with Ethereum dApps.</p><p id="1263f483-629e-8000-97a3-e3631b46f3bb" class=""><strong>Summary:</strong></p><p id="1263f483-629e-8009-b391-eeb391a1bc20" class="">An <strong>EVM-compatible blockchain</strong> is one that can run Ethereum smart contracts and dApps using the Ethereum Virtual Machine. It allows for <strong>cross-chain functionality</strong>, <strong>faster transactions</strong>, and <strong>lower fees</strong> while giving developers the flexibility to use familiar tools and languages like <strong>Solidity</strong>. Examples of EVM-compatible chains include <strong>Binance Smart Chain (BSC), Polygon, Avalanche,</strong> and <strong>Fantom</strong>, and they provide enhanced scalability while remaining interoperable with Ethereum.</p><h2 id="1273f483-629e-809c-9d01-fa41e9aa053e" class="">A <strong>smart contract</strong></h2><p id="1273f483-629e-8020-843f-db6787634165" class=""> is a self-executing contract with the terms of the agreement directly written into code. It automatically enforces and executes the contract’s terms when certain pre-defined conditions are met, eliminating the need for intermediaries like banks or lawyers. Smart contracts run on decentralized blockchain networks like Ethereum and are immutable, transparent, and secure.</p><p id="1273f483-629e-8063-955a-d5d45cf71797" class=""><strong>Key Features of Smart Contracts:</strong></p><p id="1273f483-629e-8092-8973-e34adcffd587" class="">1.	<strong>Self-Executing:</strong></p><p id="1273f483-629e-80b9-b616-e97af2d18ef4" class="">•	Smart contracts automatically execute actions (such as transferring funds or changing ownership) when the predefined conditions are met. No manual intervention is required.</p><p id="1273f483-629e-80e8-badd-fb54f65e91ef" class="">2.	<strong>Immutability:</strong></p><p id="1273f483-629e-80f9-aec6-f11759d777df" class="">•	Once deployed on a blockchain, the smart contract’s code cannot be changed. This ensures that the contract’s rules are consistent and cannot be tampered with or modified by any party.</p><p id="1273f483-629e-80fe-8fea-fd757045e5ce" class="">3.	<strong>Trustless:</strong></p><p id="1273f483-629e-80b0-9de0-d46995d22ded" class="">•	Since smart contracts are deployed on decentralized blockchains, no trust is required between the parties. The contract’s code and execution are visible to all parties, and the blockchain ensures its proper execution.</p><p id="1273f483-629e-80c8-befe-d55fe218129d" class="">4.	<strong>Transparency:</strong></p><p id="1273f483-629e-80af-ae1b-d8999d012cc0" class="">•	Smart contract code and transaction history are stored on the blockchain, making them visible to everyone. This ensures accountability, as anyone can verify the contract’s actions.</p><p id="1273f483-629e-8003-acc5-e6baf0fc2c99" class="">5.	<strong>Security:</strong></p><p id="1273f483-629e-8096-b06c-f4c5cefe9648" class="">•	Smart contracts inherit the security of the blockchain network they operate on. Since blockchain transactions are encrypted and decentralized, tampering with a smart contract is extremely difficult.</p><p id="1273f483-629e-80ec-8c7c-da1d7abea7e7" class="">6.	<strong>Efficiency:</strong></p><p id="1273f483-629e-8062-b54e-fe5a2f8d0ac9" class="">•	Smart contracts eliminate the need for intermediaries (such as lawyers, notaries, or banks), making transactions faster and often cheaper.</p><p id="1273f483-629e-8082-b9de-fec776dc57a3" class=""><strong>How Smart Contracts Work:</strong></p><p id="1273f483-629e-8056-b9d7-e3623a362a2a" class="">1.	<strong>Code Creation:</strong></p><p id="1273f483-629e-8029-9f79-db0945673062" class="">•	A smart contract is written in a programming language such as <strong>Solidity</strong> (on Ethereum) or <strong>Vyper</strong>. The contract code specifies the rules, conditions, and outcomes.</p><p id="1273f483-629e-8064-b9e5-c492b2b87e55" class="">Example:</p><p id="1273f483-629e-807c-a735-de8440855f77" class="">if (X condition is met) {</p><p id="1273f483-629e-8084-ab06-f8cd614028d1" class="">execute Y action;</p><p id="1273f483-629e-808d-a112-dd2a88d8df86" class="">}</p><p id="1273f483-629e-8003-8047-ff90458b5f22" class="">2.	<strong>Deployment:</strong></p><p id="1273f483-629e-80af-9b6c-d105a3ae52c1" class="">•	The smart contract is then deployed on a blockchain like Ethereum. Once deployed, it runs autonomously and can be interacted with by users or other contracts.</p><p id="1273f483-629e-805b-88fa-e5cb4a958f78" class="">3.	<strong>Execution:</strong></p><p id="1273f483-629e-809c-8220-e2a6d2db6b26" class="">•	When someone meets the conditions defined in the contract, the smart contract automatically executes the predefined actions. These actions are typically executed in a decentralized way, ensuring security and transparency.</p><p id="1273f483-629e-8025-b32e-fb4ac155832d" class="">Example:</p><p id="1273f483-629e-8089-baf0-d78be80bd016" class="">If a smart contract is created for a <strong>crowdfunding campaign</strong>, it might state:</p><p id="1273f483-629e-8089-8c7f-c5264c4324a4" class="">•	If the goal is met by a certain deadline, transfer the funds to the project owner.</p><p id="1273f483-629e-800f-a694-d2783beec66b" class="">•	If the goal is not met, return the funds to the backers.</p><p id="1273f483-629e-801f-a72a-c68434bb52f0" class="">4.	<strong>Immutable Record:</strong></p><p id="1273f483-629e-8057-9704-d2d76ab80a51" class="">•	Every action, transaction, or modification triggered by the smart contract is permanently recorded on the blockchain. This provides an immutable audit trail.</p><h3 id="1273f483-629e-80a6-bce9-d605739d0fba" class=""><strong>Example Use Cases of Smart Contracts:</strong></h3><p id="1273f483-629e-80df-bec7-ed8caea1d605" class="">1.	<strong>Finance (DeFi):</strong></p><p id="1273f483-629e-8030-b76b-f67f984d6d97" class="">•	<strong>Decentralized Finance (DeFi)</strong> platforms use smart contracts to enable services like lending, borrowing, trading, and yield farming without intermediaries like banks. For example, users can deposit funds into a lending protocol, and the smart contract will automatically distribute interest payments to lenders.</p><p id="1273f483-629e-8020-89f9-d0c01bda5096" class="">2.	<strong>Insurance:</strong></p><p id="1273f483-629e-806d-8645-d8257602e123" class="">•	Smart contracts can be used for <strong>automated insurance claims</strong>. For example, in travel insurance, if a flight is delayed, a smart contract could automatically verify the delay using data oracles and release a payout to the policyholder without needing to file a claim.</p><p id="1273f483-629e-80fa-83aa-d441d4a40d54" class="">3.	<strong>Supply Chain Management:</strong></p><p id="1273f483-629e-8039-9824-eae0df320cb4" class="">•	Smart contracts can track and verify the provenance of goods, ensuring that products meet certain standards. For example, a contract could automatically verify that a product has passed through certain checkpoints or quality control standards before allowing payment.</p><p id="1273f483-629e-802b-ab54-c4d6be939643" class="">4.	<strong>Real Estate:</strong></p><p id="1273f483-629e-8012-84fa-ebc2fffd033e" class="">•	Smart contracts can be used for <strong>property transfers</strong> or <strong>leasing agreements</strong>. For example, when a buyer makes a payment, ownership of the property is automatically transferred to them through a blockchain transaction.</p><p id="1273f483-629e-80e4-b4a5-fe3b65dd5a5c" class="">5.	<strong>NFTs (Non-Fungible Tokens):</strong></p><p id="1273f483-629e-80bf-a9f0-e2b785225459" class="">•	Smart contracts are used to manage the creation and transfer of <strong>NFTs</strong>, which represent ownership of unique digital assets (like art, music, or collectibles). For example, a smart contract ensures that when an NFT is sold, the original creator receives a royalty automatically.</p><p id="1273f483-629e-8018-9bd0-f980ee4d600d" class="">6.	<strong>Voting Systems:</strong></p><p id="1273f483-629e-80a0-b72e-c5075a07bba5" class="">•	Smart contracts can enable <strong>transparent and tamper-proof voting systems</strong>. Voters could submit their votes through a blockchain-based system, and the contract would automatically tally the votes and record the results in a transparent, immutable manner.</p><h3 id="1273f483-629e-8050-8b89-ef77abf09e90" class=""><strong>Example of a Simple Smart Contract:</strong></h3><p id="1273f483-629e-800f-a897-e2780209dcf7" class="">Here’s an example of a basic <strong>Ethereum smart contract</strong> written in <strong>Solidity</strong> that stores a value and allows a user to update it.</p><p id="1273f483-629e-8058-98df-eaa0804c0654" class=""><mark class="highlight-red"><code>pragma solidity ^0.8.0</code></mark><em><mark class="highlight-red"><code>;</code></mark></em></p><p id="1273f483-629e-80e0-a8a6-d340f73670eb" class=""><mark class="highlight-red"><code>contract SimpleStorage {</code></mark></p><p id="1273f483-629e-8077-9e96-f5139a8678be" class=""><mark class="highlight-red"><code>uint storedData;</code></mark></p><p id="1273f483-629e-8022-a4f7-eece8dcd7bd3" class=""><mark class="highlight-red"><code>// Function to set the stored data</code></mark></p><p id="1273f483-629e-807b-b22a-d3346bbf4f2f" class=""><mark class="highlight-red"><code>function set(uint x) public {</code></mark></p><p id="1273f483-629e-80c3-b517-d93855c2c272" class=""><mark class="highlight-red"><code>storedData = x;</code></mark></p><p id="1273f483-629e-8076-befe-e130c7e9d24e" class=""><mark class="highlight-red"><code>}</code></mark></p><p id="1273f483-629e-80dc-bb2b-cd66b294a436" class=""><mark class="highlight-red"><code>// Function to retrieve the stored data</code></mark></p><p id="1273f483-629e-806c-9bbf-fe3c48003479" class=""><mark class="highlight-red"><code>function get() public view returns (uint) {</code></mark></p><p id="1273f483-629e-80df-ae09-c7f2808e8a2d" class=""><mark class="highlight-red"><code>return storedData;</code></mark></p><p id="1273f483-629e-80e9-b1b9-edd03f0efac0" class=""><mark class="highlight-red"><code>}</code></mark></p><p id="1273f483-629e-805a-94fd-f8ac6a2af817" class=""><mark class="highlight-red"><code>}</code></mark></p><p id="1273f483-629e-8035-8e10-e22dea7b08a2" class="">In this contract:</p><p id="1273f483-629e-80e0-b59b-ce3e388ada62" class="">•	The set function allows anyone to store a number (e.g., 10).</p><p id="1273f483-629e-805b-89de-c1ff1eecf976" class="">•	The get function allows anyone to read the stored value.</p><p id="1273f483-629e-80da-a386-fa0080a1cbc0" class="">Once this contract is deployed, any interaction (setting or getting the value) is recorded on the blockchain and can be verified by anyone.</p><h3 id="1273f483-629e-8094-9c60-c07396dccf09" class=""><strong>Smart Contract Languages:</strong></h3><p id="1273f483-629e-800f-99eb-c87cf1363b22" class="">•	<strong>Solidity</strong>: The most popular language for writing smart contracts on Ethereum. It is statically typed and designed to work with the Ethereum Virtual Machine (EVM).</p><p id="1273f483-629e-805f-8c57-fb7ca26e6dc6" class="">•	<strong>Vyper</strong>: Another Ethereum smart contract language, designed to be more secure and simple compared to Solidity.</p><p id="1273f483-629e-80b5-b22c-d22174688d49" class="">•	<strong>Rust, Go, Python</strong>: Other languages used in smart contracts on non-EVM-compatible blockchains, such as Polkadot (Rust), Cosmos (Go), and Hyperledger (Python).</p><p id="1273f483-629e-80bf-95aa-f245dc05bfd9" class=""><strong>Advantages of Smart Contracts:</strong></p><p id="1273f483-629e-8008-9e9d-d076fcca1d6e" class="">1.	<strong>Trustless Transactions</strong>: Smart contracts allow trustless transactions between parties without requiring an intermediary.</p><p id="1273f483-629e-80cf-9c9f-ff4acf20dd6e" class="">2.	<strong>Cost Efficiency</strong>: Removing intermediaries can significantly reduce transaction and processing costs.</p><p id="1273f483-629e-802b-9347-e9a21d4b9176" class="">3.	<strong>Speed and Efficiency</strong>: Automated processes reduce the time needed to execute agreements.</p><p id="1273f483-629e-809a-8855-df9ccfb14c1b" class="">4.	<strong>Transparency</strong>: Smart contracts are stored on a public ledger, meaning anyone can audit their transactions.</p><p id="1273f483-629e-80dd-b6db-d598ca965a4e" class="">5.	<strong>Security</strong>: Smart contracts are secure due to their decentralized nature and cryptographic protections.</p><p id="1273f483-629e-8006-8d71-c9cb10b30e75" class=""><strong>Limitations:</strong></p><p id="1273f483-629e-806d-b56d-f8bb1fc10651" class="">1.	<strong>Code is Law</strong>: The smart contract will execute exactly as written, even if there’s a bug or error in the code. This can lead to unintended consequences if not properly audited.</p><p id="1273f483-629e-80f0-9273-e3ec1a770853" class="">2.	<strong>Immutability</strong>: Once deployed, a smart contract cannot be easily changed or updated, which can be a problem if there are issues in the code.</p><p id="1273f483-629e-80af-b6ac-e36a52489184" class="">3.	<strong>Scalability</strong>: Complex smart contracts might face scalability issues, especially on networks like Ethereum where transaction throughput can be limited.</p><p id="1273f483-629e-80c0-b2a8-e8be04cd196d" class=""><strong>Conclusion:</strong></p><p id="1273f483-629e-808a-bbd6-fbb1ca80373f" class="">A <strong>smart contract</strong> is a powerful tool for creating decentralized applications (dApps) and automating agreements in a secure, transparent, and efficient manner. By removing the need for intermediaries and enforcing contract terms programmatically, smart contracts have the potential to revolutionize industries such as finance, real estate, supply chains, and more.</p><h2 id="1273f483-629e-8056-83e3-f37d11ab412b" class=""> <strong>smart contract</strong>, <strong>IFTTT (If This Then That)</strong></h2><p id="1273f483-629e-808d-b587-eb8f5d2be140" class=""> represents a conditional logic system similar to the popular automation tool IFTTT, where specific actions are triggered when certain conditions are met.</p><p id="1273f483-629e-8059-aa8f-dc4931c31b8d" class=""><strong>IFTTT in Smart Contracts:</strong></p><p id="1273f483-629e-804a-b9fa-f4506cff4b91" class="">•	<strong>“If This”</strong>: This is the <strong>condition</strong> or event that must occur, such as a certain date being reached, a payment being received, or a threshold being met.</p><p id="1273f483-629e-8001-8dfc-fc5a77b8eb35" class="">•	<strong>“Then That”</strong>: This is the <strong>action</strong> or result that occurs automatically if the condition is satisfied. For example, transferring funds, changing ownership of assets, or executing a transaction.</p><p id="1273f483-629e-8024-94cc-ee491dd705e3" class=""><strong>Example in a Smart Contract:</strong></p><p id="1273f483-629e-8006-9eb0-cbc7775f4b1d" class="">Imagine a crowdfunding smart contract:</p><p id="1273f483-629e-8073-9ef1-f740b4dc1b0d" class="">•	<strong>Condition (If This)</strong>: “If the funding goal is met by the deadline.”</p><p id="1273f483-629e-80cf-a7d4-f4928eee3205" class="">•	<strong>Action (Then That)</strong>: “Then transfer the collected funds to the project creator.”</p><p id="1273f483-629e-80b9-a65f-f5ced9a59de2" class="">If the goal isn’t met:</p><p id="1273f483-629e-8075-893a-ff0ddf252ce6" class="">•	<strong>Condition (If This)</strong>: “If the funding goal is <strong>not</strong> met by the deadline.”</p><p id="1273f483-629e-8066-9a75-d6daaac980a6" class="">•	<strong>Action (Then That)</strong>: “Then return the funds to the backers.”</p><p id="1273f483-629e-805e-80d5-e04cc86c81cc" class="">Smart contracts inherently operate using this <strong>IFTTT</strong> logic to automate transactions based on predefined conditions.</p></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
